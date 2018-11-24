@@ -1,0 +1,96 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{hyperref}
+
+\title{Décomposition de la variance}
+\date{}
+
+\begin{document}
+\maketitle
+
+\vspace{10\baselineskip}
+\begin{center}
+	\author{ABOUZAID Mehdi \\ TOOMEY Damien}
+\end{center}
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Notations}
+\color{white} ligne inutile\\
+\color{black} $ c $: nombre de groupes \\
+$ r_i $ : effectif d'un groupe, $ i= 1...c$ \\
+$ n $ : effectif total \\
+\\ 
+Moyenne globale (tous groupes confondus) :
+\[ \bar{y}=\frac{1}{c} \cdot \sum_{i=1}^{c} \bar{y}_i\]
+\\
+Moyenne d'un groupe :
+\[ \bar{y}_i=\frac{1}{r_i} \cdot \sum_{j=1}^{r_i} y_{ij} \]
+
+\section{Modèle}
+\[ y_{ij}=\mu_i + \epsilon_i \]
+\\
+Dans cette démonstration, pour rester général, on considère que les groupes n'ont pas forcément les mêmes effectifs.
+
+\section{Décomposition de la somme des carrés des écarts}
+
+\begin{align*}
+& \text{SCE} = \text{somme des carrés des écarts} \\
+& \;\;\;\;\;\;\; = \sum_{i=1}^{c} \sum_{j=1}^{r_i}  (y_{ij}-\bar{y})^2 \\
+& \;\;\;\;\;\;\; = \sum_{i=1}^{c} \sum_{j=1}^{r_i}  (y_{ij}-\bar{y}_i+\bar{y}_i-\bar{y})^2 \\
+& \;\;\;\;\;\;\; = \sum_{i=1}^{c} \sum_{j=1}^{r_i}  (y_{ij}-\bar{y}_i)^2 + 2 \cdot \sum_{i=1}^{c} \sum_{j=1}^{r_i} (y_{ij}-\bar{y}_i) \cdot (\bar{y}_i-\bar{y}) + \sum_{i=1}^{c} \sum_{j=1}^{r_i} (\bar{y}_i-\bar{y})^2 \quad \textbf{(1)}\\
+& \;\;\;\;\;\;\; = \sum_{i=1}^{c} \sum_{j=1}^{r_i}  (y_{ij}-\bar{y}_i)^2 + \sum_{i=1}^{c} \sum_{j=1}^{r_i} (\bar{y}_i-\bar{y})^2 \quad \textbf{(2)} \\
+& \;\;\;\;\;\;\; = \sum_{i=1}^{c} \sum_{j=1}^{r_i}  (y_{ij}-\bar{y}_i)^2 + \sum_{i=1}^{c} r_i \cdot (\bar{y}_i-\bar{y})^2 \\
+& \qquad \qquad \; \text{Intra-Classe} \qquad \quad \text{Inter-Classes} \\
+\end{align*}
+
+Passage des lignes \textbf{(1)} à \textbf{(2)} :
+
+\begin{align*}
+& \quad \sum_{i=1}^{c} \sum_{j=1}^{r_i} (y_{ij}-\bar{y}_i) \cdot (\bar{y}_i-\bar{y}) \\
+& = \sum_{i=1}^{c} \sum_{j=1}^{r_i} (y_{ij} \cdot \bar{y}_i - y_{ij} \cdot \bar{y} - \bar{y}_i^2 + \bar{y}_i \cdot \bar{y}) \\
+& = \sum_{i=1}^{c} \sum_{j=1}^{r_i} (\bar{y}_i \cdot (y_{ij}-\bar{y}_i)-\bar{y} \cdot (y_{ij}-\bar{y}_i)) \\
+& = \sum_{i=1}^{c} (\bar{y}_i \cdot \sum_{j=1}^{r_i} (y_{ij}-\bar{y}_i)-\bar{y} \cdot \sum_{j=1}^{r_i} (y_{ij}-\bar{y}_i))
+\end{align*}
+
+or
+
+\begin{align*}
+& \quad \sum_{j=1}^{r_i} (y_{ij}-\bar{y}_i) \\
+& = (\sum_{j=1}^{r_i} y_{ij}) - \bar{y}_i \cdot (\sum_{j=1}^{r_i} 1) \\
+& = (\sum_{j=1}^{r_i} y_{ij}) - \bar{y}_i \cdot r_i \\
+& = (\sum_{j=1}^{r_i} y_{ij}) - \frac{1}{r_i} \cdot \sum_{f=1}^{r_i} y_{if} \cdot r_i \\
+& = (\sum_{j=1}^{r_i} y_{ij}) - \sum_{f=1}^{r_i} y_{if} \\
+& = 0
+\end{align*}
+
+En effet, la moyenne des écarts à la moyenne est toujours nulle. \\\\
+Ainsi,
+
+\[ 2 \cdot \sum_{i=1}^{c} \sum_{j=1}^{r_i} (y_{ij}-\bar{y}_i) \cdot (\bar{y}_i-\bar{y}) = 0 \]
+\\
+
+\section{Décomposition de la variance}
+
+\begin{align*}
+& \Rightarrow \text{Variance} = \frac{\text{SCE}}{n} = \frac{1}{n} \cdot \sum_{i=1}^{c} \sum_{j=1}^{r_i}  (y_{ij}-\bar{y}_i)^2 + \frac{1}{n} \cdot \sum_{i=1}^{c} r_i \cdot (\bar{y}_i-\bar{y})^2 \\
+& \qquad \qquad \qquad \qquad \qquad \; \text{Variance Intra-Classe} \;\;\;\; \text{Variance Inter-Classes} \\
+& \qquad \qquad \qquad \qquad \qquad \quad \text{Variance résiduelle} \qquad \; \text{Variance expliquée}
+\end{align*}
+\\
+Par la suite, on considérera que l'effectif de chaque groupe est identique ($ r_i = r, \;\; \forall i=1...c $).
+
+\section{Bibliographie}
+
+\begin{itemize}
+\item[•] Wikipedia
+\item[] \url{https://fr.wikipedia.org/wiki/Analyse\_de\_la\_variance}
+\end{itemize}
+
+\end{document}
